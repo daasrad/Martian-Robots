@@ -29,5 +29,45 @@ namespace MartianRobotsTest
             Assert.ThrowsException<ArgumentException>(() => robot = new Robot(TestGrid, 1, 1, Orientation.N,
                 "FFFFFFFFFRFFFFFFFFFRFFFFFFFFFRFFFFFFFFFRFFFFFFFFFRFFFFFFFFFRFFFFFFFFFRFFFFFFFFFRFFFFFFFFFRFFFFFFFFFR"));
         }
+
+        [TestMethod]
+        public void MoveRobotForward_FacingNorth()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.N, "F");
+
+            robot.MoveForward();
+
+            Assert.AreEqual(2, robot.CurrentCoordinates.Y);
+        }
+
+        [TestMethod]
+        public void MoveRobotForward_FacingSouth()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.S, "F");
+
+            robot.MoveForward();
+
+            Assert.AreEqual(0, robot.CurrentCoordinates.Y);
+        }
+
+        [TestMethod]
+        public void MoveRobotForward_FacingEast()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.E, "F");
+
+            robot.MoveForward();
+
+            Assert.AreEqual(2, robot.CurrentCoordinates.X);
+        }
+
+        [TestMethod]
+        public void MoveRobotForward_FacingWest()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.W, "F");
+
+            robot.MoveForward();
+
+            Assert.AreEqual(0, robot.CurrentCoordinates.X);
+        }
     }
 }

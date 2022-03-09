@@ -24,5 +24,23 @@ namespace MartianRobots
             this.Instruction = instruction;
         }
 
+        public void MoveForward()
+        {
+            switch (this.Orientation)
+            {
+                case Orientation.N:
+                    CurrentCoordinates.Y++;
+                    break;
+                case Orientation.S:
+                    CurrentCoordinates.Y--;
+                    break;
+                case Orientation.E:
+                    CurrentCoordinates.X++;
+                    break;
+                case Orientation.W:
+                    CurrentCoordinates.X--;
+                    break;
+            }
+        }
     }
 }
