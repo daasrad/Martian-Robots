@@ -31,7 +31,7 @@ namespace MartianRobots
                 switch (instruction)
                 {
                     case 'L':
-                        throw new NotImplementedException();
+                        TurnLeft();
                         break;
                     case 'R':
                         throw new NotImplementedException();
@@ -42,6 +42,25 @@ namespace MartianRobots
                     default:
                         throw new NotSupportedException("Unsupported instruction: " + instruction);
                 }
+            }
+        }
+
+        private void TurnLeft()
+        {
+            switch (this.Orientation)
+            {
+                case Orientation.N:
+                    this.Orientation = Orientation.W;
+                    break;
+                case Orientation.S:
+                    this.Orientation = Orientation.E;
+                    break;
+                case Orientation.E:
+                    this.Orientation = Orientation.N;
+                    break;
+                case Orientation.W:
+                    this.Orientation = Orientation.S;
+                    break;
             }
         }
 
