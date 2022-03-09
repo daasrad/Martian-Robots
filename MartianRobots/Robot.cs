@@ -34,7 +34,7 @@ namespace MartianRobots
                         TurnLeft();
                         break;
                     case 'R':
-                        throw new NotImplementedException();
+                        TurnRight();
                         break;
                     case 'F':
                         MoveForward();
@@ -60,6 +60,25 @@ namespace MartianRobots
                     break;
                 case Orientation.W:
                     this.Orientation = Orientation.S;
+                    break;
+            }
+        }
+
+        private void TurnRight()
+        {
+            switch (this.Orientation)
+            {
+                case Orientation.N:
+                    this.Orientation = Orientation.E;
+                    break;
+                case Orientation.S:
+                    this.Orientation = Orientation.W;
+                    break;
+                case Orientation.E:
+                    this.Orientation = Orientation.S;
+                    break;
+                case Orientation.W:
+                    this.Orientation = Orientation.N;
                     break;
             }
         }

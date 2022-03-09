@@ -127,5 +127,45 @@ namespace MartianRobotsTest
 
             Assert.AreEqual(Orientation.S, robot.Orientation);
         }
+
+        [TestMethod]
+        public void TurnRobotRight_FacingNorth()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.N, "R");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual(Orientation.E, robot.Orientation);
+        }
+
+        [TestMethod]
+        public void TurnRobotRight_FacingSouth()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.S, "R");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual(Orientation.W, robot.Orientation);
+        }
+
+        [TestMethod]
+        public void TurnRobotRight_FacingEast()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.E, "R");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual(Orientation.S, robot.Orientation);
+        }
+
+        [TestMethod]
+        public void TurnRobotRight_FacingWest()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.W, "R");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual(Orientation.N, robot.Orientation);
+        }
     }
 }
