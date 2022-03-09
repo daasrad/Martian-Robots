@@ -9,11 +9,11 @@ namespace MartianRobots
         public Grid Grid { get; set; }
         public Coordinates CurrentCoordinates { get; set; }
         public Orientation Orientation { get; set; }
-        public string Instruction { get; set; }
+        public string Instructions { get; set; }
 
-        public Robot(Grid grid, int positionX, int positionY, Orientation orientation, string instruction)
+        public Robot(Grid grid, int positionX, int positionY, Orientation orientation, string instructions)
         {
-            if(instruction.Length >= MaximumInstructionLength)
+            if(instructions.Length >= MaximumInstructionLength)
             {
                 throw new ArgumentException("All instruction strings must be less than 100 characters in length.");
             }
@@ -21,10 +21,31 @@ namespace MartianRobots
             this.Grid = grid;
             this.CurrentCoordinates = new Coordinates(positionX, positionY);
             this.Orientation = orientation;
-            this.Instruction = instruction;
+            this.Instructions = instructions;
         }
 
-        public void MoveForward()
+        public void ExecuteInstructions()
+        {
+            foreach(char instruction in Instructions)
+            {
+                switch (instruction)
+                {
+                    case 'L':
+                        throw new NotImplementedException();
+                        break;
+                    case 'R':
+                        throw new NotImplementedException();
+                        break;
+                    case 'F':
+                        MoveForward();
+                        break;
+                    default:
+                        throw new NotSupportedException("Unsupported instruction: " + instruction);
+                }
+            }
+        }
+
+        private void MoveForward()
         {
             switch (this.Orientation)
             {

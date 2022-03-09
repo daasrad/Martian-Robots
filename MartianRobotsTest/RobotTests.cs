@@ -31,11 +31,29 @@ namespace MartianRobotsTest
         }
 
         [TestMethod]
+        public void RobotExecutesInstructions()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.N, "F");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual(2, robot.CurrentCoordinates.Y);
+        }
+
+        [TestMethod]
+        public void RobotDoesNotExecutesInvalidInstructions()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.N, "T");
+
+            Assert.ThrowsException<NotSupportedException>(() => robot.ExecuteInstructions());
+        }
+
+        [TestMethod]
         public void MoveRobotForward_FacingNorth()
         {
             Robot robot = new Robot(TestGrid, 1, 1, Orientation.N, "F");
 
-            robot.MoveForward();
+            robot.ExecuteInstructions();
 
             Assert.AreEqual(2, robot.CurrentCoordinates.Y);
         }
@@ -45,7 +63,7 @@ namespace MartianRobotsTest
         {
             Robot robot = new Robot(TestGrid, 1, 1, Orientation.S, "F");
 
-            robot.MoveForward();
+            robot.ExecuteInstructions();
 
             Assert.AreEqual(0, robot.CurrentCoordinates.Y);
         }
@@ -55,7 +73,7 @@ namespace MartianRobotsTest
         {
             Robot robot = new Robot(TestGrid, 1, 1, Orientation.E, "F");
 
-            robot.MoveForward();
+            robot.ExecuteInstructions();
 
             Assert.AreEqual(2, robot.CurrentCoordinates.X);
         }
@@ -65,7 +83,7 @@ namespace MartianRobotsTest
         {
             Robot robot = new Robot(TestGrid, 1, 1, Orientation.W, "F");
 
-            robot.MoveForward();
+            robot.ExecuteInstructions();
 
             Assert.AreEqual(0, robot.CurrentCoordinates.X);
         }
