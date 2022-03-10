@@ -10,6 +10,7 @@ namespace MartianRobots
         public Coordinates CurrentCoordinates { get; set; }
         public Orientation Orientation { get; set; }
         public string Instructions { get; set; }
+        public bool IsLost { get; set; }
 
         public Robot(Grid grid, int positionX, int positionY, Orientation orientation, string instructions)
         {
@@ -22,12 +23,18 @@ namespace MartianRobots
             this.CurrentCoordinates = new Coordinates(positionX, positionY);
             this.Orientation = orientation;
             this.Instructions = instructions;
+            this.IsLost = Grid.AreCoordinatesOffGrid(CurrentCoordinates);
         }
 
         public void ExecuteInstructions()
         {
             foreach(char instruction in Instructions)
             {
+                if (IsLost)
+                {
+                    break;
+                }
+
                 switch (instruction)
                 {
                     case 'L':
@@ -85,26 +92,31 @@ namespace MartianRobots
 
         private void MoveForward()
         {
-            Coordinates previousCoordinates = new Coordinates(CurrentCoordinates.X, CurrentCoordinates.Y);
+            if(!Grid.HasScent(CurrentCoordinates))
+            {
+                Coordinates previousCoordinates = new Coordinates(CurrentCoordinates.X, CurrentCoordinates.Y);
 
-            switch (this.Orientation)
-            {
-                case Orientation.N:
-                    CurrentCoordinates.Y++;
-                    break;
-                case Orientation.S:
-                    CurrentCoordinates.Y--;
-                    break;
-                case Orientation.E:
-                    CurrentCoordinates.X++;
-                    break;
-                case Orientation.W:
-                    CurrentCoordinates.X--;
-                    break;
-            }
-            if (Grid.AreCoordinatesOffGrid(CurrentCoordinates))
-            {
-                Grid.AddScent(previousCoordinates);
+                switch (this.Orientation)
+                {
+                    case Orientation.N:
+                        CurrentCoordinates.Y++;
+                        break;
+                    case Orientation.S:
+                        CurrentCoordinates.Y--;
+                        break;
+                    case Orientation.E:
+                        CurrentCoordinates.X++;
+                        break;
+                    case Orientation.W:
+                        CurrentCoordinates.X--;
+                        break;
+                }
+
+                if (Grid.AreCoordinatesOffGrid(CurrentCoordinates))
+                {
+                    Grid.AddScent(previousCoordinates);
+                    IsLost = true;
+                }
             }
         }
     }

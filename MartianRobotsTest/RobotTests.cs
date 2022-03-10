@@ -207,5 +207,40 @@ namespace MartianRobotsTest
 
             Assert.IsTrue(TestGrid.HasScent(new Coordinates(0, 5)));
         }
+
+        [TestMethod]
+        public void RobotIsLost_GoingOffGrid()
+        {
+            Robot robot = new Robot(TestGrid, 5, 10, Orientation.N, "F");
+
+            robot.ExecuteInstructions();
+
+            Assert.IsTrue(robot.IsLost);
+        }
+
+        [TestMethod]
+        public void RobotDoesNotMoveWhenOnScent()
+        {
+            Coordinates testCoordinate = new Coordinates(5, 10);
+            TestGrid.AddScent(testCoordinate);
+            Robot robot = new Robot(TestGrid, 5, 10, Orientation.N, "F");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual(robot.CurrentCoordinates, testCoordinate);
+        }
+
+        [TestMethod]
+        public void RobotDoesNotMoveWhenLost()
+        {
+            Coordinates testCoordinate = new Coordinates(11, 11);
+            TestGrid.AddScent(testCoordinate);
+            Robot robot = new Robot(TestGrid, 11, 11, Orientation.N, "FRRL");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual(robot.CurrentCoordinates, testCoordinate);
+            Assert.AreEqual(robot.Orientation, Orientation.N);
+        }
     }
 }
