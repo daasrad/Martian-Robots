@@ -264,17 +264,6 @@ namespace MartianRobotsTest
         }
 
         [TestMethod]
-        public void RobotSampleOne()
-        {
-            Grid grid = new Grid(5, 3);
-            Robot robot = new Robot(grid, 1, 1, Orientation.E, "RFRFRFRF");
-
-            robot.ExecuteInstructions();
-
-            Assert.AreEqual("1 1 E", robot.GetStatus());
-        }
-
-        [TestMethod]
         public void RobotValidSampleOutput()
         {
             Grid grid = new Grid(5, 3);

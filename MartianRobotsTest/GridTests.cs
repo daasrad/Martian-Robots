@@ -50,6 +50,5 @@ namespace MartianRobotsTest
 
             Assert.IsTrue(grid.HasScent(new Coordinates(1, 1)));
         }
-
     }
 }
