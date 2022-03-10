@@ -5,10 +5,10 @@ namespace MartianRobots
 {
     public class Grid
     {
-        private const int MinimumGridSize = 0;
-        private const int MaximumGridSize = 50;
+        public const int MinimumGridSize = 0;
+        public const int MaximumGridSize = 50;
 
-        private readonly Coordinates GridSize;
+        public Coordinates GridSize { get; }
         private List<Coordinates> ScentCoordinates;
 
         public Grid(int xSize, int ySize)

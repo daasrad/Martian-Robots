@@ -92,32 +92,38 @@ namespace MartianRobots
 
         private void MoveForward()
         {
-            if(!Grid.HasScent(CurrentCoordinates))
+            Coordinates previousCoordinates = new Coordinates(CurrentCoordinates.X, CurrentCoordinates.Y);
+
+            //If there is no Scent AND not facing Grid edge, Move Forward
+            switch (this.Orientation)
             {
-                Coordinates previousCoordinates = new Coordinates(CurrentCoordinates.X, CurrentCoordinates.Y);
-
-                switch (this.Orientation)
-                {
-                    case Orientation.N:
-                        CurrentCoordinates.Y++;
-                        break;
-                    case Orientation.S:
-                        CurrentCoordinates.Y--;
-                        break;
-                    case Orientation.E:
-                        CurrentCoordinates.X++;
-                        break;
-                    case Orientation.W:
-                        CurrentCoordinates.X--;
-                        break;
-                }
-
-                if (Grid.AreCoordinatesOffGrid(CurrentCoordinates))
-                {
-                    Grid.AddScent(previousCoordinates);
-                    IsLost = true;
-                }
+                case Orientation.N:
+                    if(!(Grid.HasScent(CurrentCoordinates) && CurrentCoordinates.Y == this.Grid.GridSize.Y)) CurrentCoordinates.Y++;
+                    break;
+                case Orientation.S:
+                    if (!(Grid.HasScent(CurrentCoordinates) && CurrentCoordinates.Y == Grid.MinimumGridSize)) CurrentCoordinates.Y--;
+                    break;
+                case Orientation.E:
+                    if (!(Grid.HasScent(CurrentCoordinates) && CurrentCoordinates.X == this.Grid.GridSize.X)) CurrentCoordinates.X++;
+                    break;
+                case Orientation.W:
+                    if (!(Grid.HasScent(CurrentCoordinates) && CurrentCoordinates.X == Grid.MinimumGridSize)) CurrentCoordinates.X--;
+                    break;
             }
+
+            if(Grid.AreCoordinatesOffGrid(CurrentCoordinates))
+            {
+                //Reset to Last Known Valid Coordinates
+                CurrentCoordinates = previousCoordinates;
+
+                Grid.AddScent(CurrentCoordinates);
+                IsLost = true;
+            }
+        }
+
+        public string GetStatus()
+        {
+            return $"{CurrentCoordinates.X} {CurrentCoordinates.Y} {Orientation}{(IsLost ? " LOST" : "")}";
         }
     }
 }

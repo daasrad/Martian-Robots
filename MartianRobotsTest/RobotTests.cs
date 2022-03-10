@@ -227,7 +227,7 @@ namespace MartianRobotsTest
 
             robot.ExecuteInstructions();
 
-            Assert.AreEqual(robot.CurrentCoordinates, testCoordinate);
+            Assert.AreEqual(testCoordinate, robot.CurrentCoordinates);
         }
 
         [TestMethod]
@@ -239,8 +239,58 @@ namespace MartianRobotsTest
 
             robot.ExecuteInstructions();
 
-            Assert.AreEqual(robot.CurrentCoordinates, testCoordinate);
-            Assert.AreEqual(robot.Orientation, Orientation.N);
+            Assert.AreEqual(testCoordinate, robot.CurrentCoordinates);
+            Assert.AreEqual(Orientation.N, robot.Orientation);
+        }
+
+        [TestMethod]
+        public void RobotHasCorrectStatus()
+        {
+            Robot robot = new Robot(TestGrid, 1, 1, Orientation.N, "FRRL");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual("1 2 E", robot.GetStatus());
+        }
+
+        [TestMethod]
+        public void RobotHasCorrectStatusWhenLost()
+        {
+            Robot robot = new Robot(TestGrid, 10, 10, Orientation.N, "FRRL");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual("10 10 N LOST", robot.GetStatus());
+        }
+
+        [TestMethod]
+        public void RobotSampleOne()
+        {
+            Grid grid = new Grid(5, 3);
+            Robot robot = new Robot(grid, 1, 1, Orientation.E, "RFRFRFRF");
+
+            robot.ExecuteInstructions();
+
+            Assert.AreEqual("1 1 E", robot.GetStatus());
+        }
+
+        [TestMethod]
+        public void RobotValidSampleOutput()
+        {
+            Grid grid = new Grid(5, 3);
+
+            Robot robotOne = new Robot(grid, 1, 1, Orientation.E, "RFRFRFRF");
+            robotOne.ExecuteInstructions();
+
+            Robot robotTwo = new Robot(grid, 3, 2, Orientation.N, "FRRFLLFFRRFLL");
+            robotTwo.ExecuteInstructions();
+
+            Robot robotThree = new Robot(grid, 0, 3, Orientation.W, "LLFFFLFLFL");
+            robotThree.ExecuteInstructions();
+
+            Assert.AreEqual("1 1 E", robotOne.GetStatus());
+            Assert.AreEqual("3 3 N LOST", robotTwo.GetStatus());
+            Assert.AreEqual("2 3 S", robotThree.GetStatus());
         }
     }
 }
