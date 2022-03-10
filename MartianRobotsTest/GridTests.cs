@@ -41,5 +41,15 @@ namespace MartianRobotsTest
             Grid grid;
             Assert.ThrowsException<ArgumentException>(() => grid = new Grid(1, -1));
         }
+
+        [TestMethod]
+        public void GridScentAdded()
+        {
+            Grid grid = new Grid(1, 1);
+            grid.AddScent(new Coordinates(1, 1));
+
+            Assert.IsTrue(grid.HasScent(new Coordinates(1, 1)));
+        }
+
     }
 }

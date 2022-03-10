@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MartianRobots
 {
@@ -8,6 +9,7 @@ namespace MartianRobots
         private const int MaximumGridSize = 50;
 
         private readonly Coordinates GridSize;
+        private List<Coordinates> ScentCoordinates;
 
         public Grid(int xSize, int ySize)
         {
@@ -16,7 +18,23 @@ namespace MartianRobots
                 throw new ArgumentException("Grid Size must be between 0 and 50");
             }
 
-            GridSize = new Coordinates(xSize, ySize);
+            this.GridSize = new Coordinates(xSize, ySize);
+            this.ScentCoordinates = new List<Coordinates>();
+        }
+
+        public bool AreCoordinatesOffGrid(Coordinates coordinates)
+        {
+            return coordinates.X < MinimumGridSize || coordinates.Y < MinimumGridSize || coordinates.X > GridSize.X || coordinates.Y > GridSize.Y;
+        }
+
+        public void AddScent(Coordinates scentCoordinates)
+        {
+            ScentCoordinates.Add(scentCoordinates);
+        }
+
+        public bool HasScent(Coordinates coordinates)
+        {
+            return ScentCoordinates.Contains(coordinates);
         }
     }
 }

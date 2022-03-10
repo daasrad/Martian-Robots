@@ -85,6 +85,8 @@ namespace MartianRobots
 
         private void MoveForward()
         {
+            Coordinates previousCoordinates = new Coordinates(CurrentCoordinates.X, CurrentCoordinates.Y);
+
             switch (this.Orientation)
             {
                 case Orientation.N:
@@ -99,6 +101,10 @@ namespace MartianRobots
                 case Orientation.W:
                     CurrentCoordinates.X--;
                     break;
+            }
+            if (Grid.AreCoordinatesOffGrid(CurrentCoordinates))
+            {
+                Grid.AddScent(previousCoordinates);
             }
         }
     }
