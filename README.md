@@ -10,6 +10,8 @@ This is a C# .NET Core project.
 4. **To Run the Code**, type into the command line (without quotes): "dotnet run --project:./MartianRobots"
 5. **To Run the Tests**, type into the command line (without quotes): "dotnet test"
 
+For more information on the .NET CLI, go to: https://docs.microsoft.com/en-us/dotnet/core/tools/
+
 ## Problem:
 The surface of Mars can be modelled by a rectangular grid around which robots are able to move according to instructions provided from Earth. 
 
